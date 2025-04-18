@@ -44,5 +44,6 @@ Thumbs.db
 *.bak
 *~
 
+article_2/.env
 article_1/.env
 article_1/amvera_data/docs_amvera

@@ -3,7 +3,7 @@ import torch
 from loguru import logger
 from langchain_chroma import Chroma
 
-CHROMA_PATH = "./shop_chroma_db"
+CHROMA_PATH = r"C:\Users\mrmno\CursorPythonProjects\chroma_project\article_1\examples\shop_chroma_db"
 COLLECTION_NAME = "shop_data"
 
 
