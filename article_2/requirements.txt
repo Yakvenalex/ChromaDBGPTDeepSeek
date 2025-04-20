@@ -9,3 +9,5 @@ fastapi==0.115.12
 uvicorn==0.34.0
 aiosqlite==0.21.0
 Jinja2==3.1.6
+aiofiles==24.1.0
+PyJWT==2.10.1

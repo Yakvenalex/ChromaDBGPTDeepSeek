@@ -1,0 +1,341 @@
+:root {
+  --primary-color: #19c37d;
+  --primary-hover: #1a7f64;
+  --bg-color: #343541;
+  --bg-secondary: #40414f;
+  --border-color: #4a4b57;
+  --text-color: #fff;
+  --text-secondary: #d1d5db;
+}
+
+body {
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.chat-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 20px auto;
+  background: var(--bg-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.chat-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.provider-select {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.provider-select:hover {
+  background-color: var(--border-color);
+}
+
+.chat-output {
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  flex: 1;
+  padding: 15px;
+  margin-bottom: 20px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--bg-color);
+}
+
+.chat-output::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-output::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+.chat-output::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 3px;
+}
+
+.input-container {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+}
+
+.form-control {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: 8px;
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.form-control:focus {
+  background-color: var(--bg-secondary);
+  border-color: var(--primary-color);
+  color: var(--text-color);
+  box-shadow: 0 0 0 2px rgba(25, 195, 125, 0.2);
+}
+
+.form-control::placeholder {
+  color: var(--text-secondary);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  background-color: var(--primary-hover);
+  opacity: 0.7;
+  transform: none;
+}
+
+.message-content {
+  transition: opacity 0.1s ease-out;
+  min-height: 1em;
+  overflow: hidden;
+}
+
+.message-content p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.message-content p:last-child {
+  margin-bottom: 0;
+}
+
+.message.streaming .message-content {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.message {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  animation: fadeIn 0.3s ease-out;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease-out;
+}
+
+.message.streaming {
+  box-shadow: 0 0 10px rgba(25, 195, 125, 0.2);
+}
+
+.message::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.message.streaming::after {
+  transform: scaleX(1);
+  animation: progress 2s ease-in-out infinite;
+}
+
+@keyframes progress {
+  0% {
+    transform: scaleX(0);
+  }
+  50% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+.message.user {
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+}
+
+.message.assistant {
+  background: var(--bg-secondary);
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  padding: 15px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.loading-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  animation: loading 1.4s infinite ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loading {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+.copy-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  opacity: 0;
+}
+
+.message:hover .copy-button {
+  opacity: 1;
+}
+
+.copy-button:hover {
+  color: var(--text-color);
+  background: var(--border-color);
+}
+
+.copy-button.copied {
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .chat-container {
+    margin: 0;
+    padding: 15px;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .chat-header {
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .chat-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .provider-select {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+.header-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
